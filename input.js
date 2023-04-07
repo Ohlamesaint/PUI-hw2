@@ -182,7 +182,7 @@ document.addEventListener("touchstart", (event) => {
             e.touches[0].pageY - e.touches[1].pageY);
 
         //check is vertical(0) or horizontal(1)
-        let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX)>Math.abs(e.touches[0].pageY - e.touches[1].pageY))?1:0;
+        let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX) > Math.abs(e.touches[0].pageY - e.touches[1].pageY)) ? 1 : 0;
 
         test[0].textContent = `${originDist}, ${direction}`;
 
@@ -193,24 +193,30 @@ document.addEventListener("touchstart", (event) => {
         }
 
         function resize(e, target) {
-            let ratio = originDist/dist(e);
-            if(direction === 0){
-                target.style.height = originHieght*ratio;
+            let ratio = originDist / dist(e);
+            if (direction === 0) {
+                target.style.height = originHieght * ratio;
             } else {
-                target.style.width = originWidth*ratio;
+                target.style.width = originWidth * ratio;
             }
             test[0].textContent = `${originDist}, ${direction} ,
                 ${ratio}`;
         }
-    
+
         document.addEventListener("touchmove", resize);
-    
+
         document.addEventListener("touchend", () => {
-            if(event.touches.length == 0){
+            if (event.touches.length == 0) {
 
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
+        })
+    } else {
+        test[0].textContent = event.touches.length;
+        document.addEventListener("touchend", () => {
+            test[0].textContent = "fuck";
+            document.removeEventListener("touchend", this);
         })
     }
 });
