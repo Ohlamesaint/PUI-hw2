@@ -11,6 +11,7 @@ of the interaction.
 
 let timeoutID;
 let targets = document.getElementsByClassName("target");
+let test = document.getElementsByClassName("show");
 
 [...targets].forEach(target => {
 
@@ -102,6 +103,7 @@ let targets = document.getElementsByClassName("target");
 
     target.addEventListener("touchstart", (event) => {
         if (event.touches.length == 1) {
+
             let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
             let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
 
@@ -144,6 +146,7 @@ let targets = document.getElementsByClassName("target");
                 target.removeEventListener("click", this);
                 event.target.style.zIndex = 10;
                 event.stopPropagation();
+
             })
         } else if (event.touches.length == 2) {
 
@@ -181,6 +184,7 @@ document.addEventListener("touchstart", (event) => {
         //check is vertical(0) or horizontal(1)
         let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX)>Math.abs(e.touches[0].pageY - e.touches[1].pageY))?1:0;
 
+        test[0].textContent = `${originDist}, ${direction}`;
 
         function dist(e) {
             return Math.hypot(
@@ -195,19 +199,20 @@ document.addEventListener("touchstart", (event) => {
             } else {
                 target.style.width = originWidth*ratio;
             }
+            test[0].textContent = `${originDist}, ${direction} ,
+                ${ratio}`;
         }
     
         document.addEventListener("touchmove", resize);
     
         document.addEventListener("touchend", () => {
             if(event.touches.length == 0){
+
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
         })
     }
-
-    
 });
 
 
