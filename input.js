@@ -178,6 +178,9 @@ document.addEventListener("touchstart", (event) => {
         let originWidth = target.offsetWidth;
         // test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
         let originHieght = target.offsetHeight;
+
+        target.style.width = originWidth;
+        target.style.height  = originHieght
         // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
 
         let originDist = Math.hypot(
@@ -210,11 +213,11 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                target.offsetHeight = originHieght * ratio + "px";
+                target.style.height = originHieght * ratio + "px";
                 // test[6].textContent = `height change : ${originHieght + "px"} -> ${originHieght * ratio}`;
 
             } else {
-                target.offsetWidth = originWidth * ratio + "px";
+                target.style.width = originWidth * ratio + "px";
                 // test[6].textContent = `width change : ${originWidth + "px"} -> ${originWidth * ratio + "px"}`;
 
             }
