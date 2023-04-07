@@ -175,7 +175,11 @@ document.addEventListener("touchstart", (event) => {
                 break;
             }
         }
-        if (target === undefined) return;
+        if (target === undefined) {
+            test[6].textContent = `WTF`;
+
+            return;
+        }
         let originWidth = target.offsetWidth;
         let originHieght = target.offsetHeight;
         let originDist = Math.hypot(
@@ -213,7 +217,7 @@ document.addEventListener("touchstart", (event) => {
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
                 test[0].textContent = "fuck";
-                test[1].textContent = "fuck2";
+                test[1].textContent = "direction";
                 test[2].textContent = "OW";
                 test[3].textContent = "OH";
                 test[4].textContent = "OD";
