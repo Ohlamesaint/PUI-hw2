@@ -200,7 +200,7 @@ document.addEventListener("touchstart", (event) => {
         function resize(e) {
             test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
 
-            let ratio = originDist / dist(e);
+            let ratio = dist(e)/originDist;
             let target;
             for (let i = 0; i < targets.length; i++) {
                 if (targets[i].style.backgroundColor === "blue") {
@@ -210,11 +210,11 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                target.style.height = originHieght * ratio;
+                target.style.height = originHieght * ratio + "px";
                 test[6].textContent = `height change : ${originHieght} -> ${originHieght * ratio}`;
 
             } else {
-                target.style.width = originWidth * ratio;
+                target.style.width = originWidth * ratio + "px";
                 test[6].textContent = `width change : ${originWidth} -> ${originWidth * ratio}`;
 
             }
