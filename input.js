@@ -203,9 +203,9 @@ document.addEventListener("touchstart", (event) => {
 
             let ratio = originDist / dist(e);
             if (direction === 0) {
-                target.style.height = originHieght * ratio;
+                target.offsetHeight = originHieght * ratio;
             } else {
-                target.style.width = originWidth * ratio;
+                target.offsetWidth = originWidth * ratio;
             }
             test[5].textContent = `${ratio}`;
         }
