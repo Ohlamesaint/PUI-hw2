@@ -103,7 +103,7 @@ let test = document.getElementsByClassName("show");
 
     target.addEventListener("touchstart", (event) => {
         if (event.touches.length == 1) {
-            
+
             let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
             let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
 
@@ -177,14 +177,14 @@ document.addEventListener("touchstart", (event) => {
         }
         if (target === undefined) return;
         let originWidth = target.offsetWidth;
-        test[2].textContent = originWidth!==undefined?`${originWidth}`:"undefined";
+        test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
         let originHieght = target.offsetHeight;
-        test[3].textContent = originHieght!==undefined?`${originHieght}`:"undefined";
+        test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
 
         let originDist = Math.hypot(
             event.touches[0].pageX - event.touches[1].pageX,
             event.touches[0].pageY - event.touches[1].pageY);
-        test[4].textContent = originDist!==undefined?`${originDist}`:"undefined";
+        test[4].textContent = originDist !== undefined ? `${originDist}` : "undefined";
 
 
         //check is vertical(0) or horizontal(1)
@@ -202,17 +202,23 @@ document.addEventListener("touchstart", (event) => {
             test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
 
             let ratio = originDist / dist(e);
+            let target;
+            for (let i = 0; i < targets.length; i++) {
+                if (targets[i].style.backgroundColor === "blue") {
+                    target = targets[i];
+                    test[6].textContent = i;
+                    break;
+                }
+            }
             if (direction === 0) {
-                target.offsetHeight = originHieght * ratio;
+                target.style.height = originHieght * ratio;
             } else {
-                target.offsetWidth = originWidth * ratio;
+                target.style.width = originWidth * ratio;
             }
             test[5].textContent = `${ratio}`;
         }
 
-        target.addEventListener("touchmove", resize, true);
-        document.addEventListener("touchmove", null, true);
-
+        document.addEventListener("touchmove", resize);
 
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
@@ -224,8 +230,7 @@ document.addEventListener("touchstart", (event) => {
                 test[5].textContent = "ratio";
                 test[7].textContent = "--";
 
-                document.removeEventListener("touchmove", null);
-                target.removeEventListener("touchmove", resize);
+                document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
         })
