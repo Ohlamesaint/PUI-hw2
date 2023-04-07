@@ -165,7 +165,7 @@ let test = document.getElementsByClassName("show");
 
 document.addEventListener("touchstart", (event) => {
     if (event.touches.length == 2) {
-        test[0].textContent = event.touches.length;
+        // test[0].textContent = event.touches.length;
         let targets = document.getElementsByClassName("target");
         let target;
         for (let i = 0; i < targets.length; i++) {
@@ -176,62 +176,62 @@ document.addEventListener("touchstart", (event) => {
         }
         if (target === undefined) return;
         let originWidth = target.offsetWidth;
-        test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
+        // test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
         let originHieght = target.offsetHeight;
-        test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
+        // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
 
         let originDist = Math.hypot(
             event.touches[0].pageX - event.touches[1].pageX,
             event.touches[0].pageY - event.touches[1].pageY);
-        test[4].textContent = originDist !== undefined ? `${originDist}` : "undefined";
+        // test[4].textContent = originDist !== undefined ? `${originDist}` : "undefined";
 
 
         //check is vertical(0) or horizontal(1)
         let direction = (Math.abs(event.touches[0].pageX - event.touches[1].pageX) > Math.abs(event.touches[0].pageY - event.touches[1].pageY)) ? 1 : 0;
 
-        test[1].textContent = `${direction}`;
+        // test[1].textContent = `${direction}`;
 
         function dist(e) {
             return Math.hypot(
                 e.touches[0].pageX - e.touches[1].pageX,
                 e.touches[0].pageY - e.touches[1].pageY);
         }
-        let i = 0;
+        // let i = 0;
         function resize(e) {
-            test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
+            // test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
 
             let ratio = dist(e)/originDist;
             let target;
             for (let i = 0; i < targets.length; i++) {
                 if (targets[i].style.backgroundColor === "blue") {
                     target = targets[i];
-                    test[6].textContent = i;
+                    // test[6].textContent = i;
                     break;
                 }
             }
             if (direction === 0) {
                 target.style.height = originHieght * ratio + "px";
-                test[6].textContent = `height change : ${originHieght + "px"} -> ${originHieght * ratio}`;
+                // test[6].textContent = `height change : ${originHieght + "px"} -> ${originHieght * ratio}`;
 
             } else {
                 target.style.width = originWidth * ratio + "px";
-                test[6].textContent = `width change : ${originWidth + "px"} -> ${originWidth * ratio + "px"}`;
+                // test[6].textContent = `width change : ${originWidth + "px"} -> ${originWidth * ratio + "px"}`;
 
             }
-            test[5].textContent = `${ratio}`;
+            // test[5].textContent = `${ratio}`;
         }
 
         document.addEventListener("touchmove", resize);
 
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
-                test[0].textContent = "fuck";
-                test[1].textContent = "direction";
-                test[2].textContent = "OW";
-                test[3].textContent = "OH";
-                test[4].textContent = "OD";
-                test[5].textContent = "ratio";
-                test[7].textContent = "--";
+                // test[0].textContent = "fuck";
+                // test[1].textContent = "direction";
+                // test[2].textContent = "OW";
+                // test[3].textContent = "OH";
+                // test[4].textContent = "OD";
+                // test[5].textContent = "ratio";
+                // test[7].textContent = "--";
 
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
