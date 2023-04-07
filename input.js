@@ -199,6 +199,8 @@ document.addEventListener("touchstart", (event) => {
         }
 
         function resize(e, target) {
+            test[7].textContent = "in";
+
             let ratio = originDist / dist(e);
             if (direction === 0) {
                 target.style.height = originHieght * ratio;
@@ -218,6 +220,8 @@ document.addEventListener("touchstart", (event) => {
                 test[3].textContent = "OH";
                 test[4].textContent = "OD";
                 test[5].textContent = "ratio";
+                test[7].textContent = "--";
+
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
