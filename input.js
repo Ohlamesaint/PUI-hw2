@@ -172,23 +172,20 @@ document.addEventListener("touchstart", (event) => {
         for (let i = 0; i < targets.length; i++) {
             if (targets[i].style.backgroundColor === "blue") {
                 target = targets[i];
+                test[6].textContent = i;
                 break;
             }
         }
-        if (target === undefined) {
-            test[6].textContent = `WTF`;
-
-            return;
-        }
+        if (target === undefined) return;
         let originWidth = target.offsetWidth;
         let originHieght = target.offsetHeight;
         let originDist = Math.hypot(
             e.touches[0].pageX - e.touches[1].pageX,
             e.touches[0].pageY - e.touches[1].pageY);
 
-        test[2].textContent = `${originWidth}`;
-        test[3].textContent = `${originHieght}`;
-        test[4].textContent = `${originDist}`;
+        test[2].textContent = originWidth!==undefined?`${originWidth}`:"undefined";
+        test[3].textContent = originHieght!==undefined?`${originHieght}`:"undefined";
+        test[4].textContent = originDist!==undefined?`${originDist}`:"undefined";
 
 
         //check is vertical(0) or horizontal(1)
