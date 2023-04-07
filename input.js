@@ -209,11 +209,14 @@ document.addEventListener("touchstart", (event) => {
                     break;
                 }
             }
-            test[6].textContent = target;
             if (direction === 0) {
                 target.style.height = originHieght * ratio;
+                test[6].textContent = `height change : ${originHieght} -> ${originHieght * ratio}`;
+
             } else {
                 target.style.width = originWidth * ratio;
+                test[6].textContent = `height change : ${originWidth} -> ${originWidth * ratio}`;
+
             }
             test[5].textContent = `${ratio}`;
         }
