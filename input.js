@@ -215,7 +215,7 @@ document.addEventListener("touchstart", (event) => {
 
             } else {
                 target.style.width = originWidth * ratio;
-                test[6].textContent = `height change : ${originWidth} -> ${originWidth * ratio}`;
+                test[6].textContent = `width change : ${originWidth} -> ${originWidth * ratio}`;
 
             }
             test[5].textContent = `${ratio}`;
