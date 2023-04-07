@@ -197,9 +197,9 @@ document.addEventListener("touchstart", (event) => {
                 e.touches[0].pageX - e.touches[1].pageX,
                 e.touches[0].pageY - e.touches[1].pageY);
         }
-
+        let i = 0;
         function resize(e, target) {
-            test[7].textContent = `${originDist}/${dist(e)}`;
+            test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
 
             let ratio = originDist / dist(e);
             if (direction === 0) {
