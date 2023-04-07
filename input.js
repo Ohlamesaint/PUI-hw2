@@ -198,7 +198,7 @@ document.addEventListener("touchstart", (event) => {
                 e.touches[0].pageY - e.touches[1].pageY);
         }
         let i = 0;
-        function resize(e, target) {
+        function resize(e) {
             test[7].textContent = `${originDist}/${dist(e)}--${i++}`;
 
             let ratio = originDist / dist(e);
@@ -210,7 +210,7 @@ document.addEventListener("touchstart", (event) => {
             test[5].textContent = `${ratio}`;
         }
 
-        document.addEventListener("touchmove", resize(event, target));
+        document.addEventListener("touchmove", resize);
 
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
