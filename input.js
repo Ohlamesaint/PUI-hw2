@@ -103,7 +103,7 @@ let test = document.getElementsByClassName("show");
 
     target.addEventListener("touchstart", (event) => {
         if (event.touches.length == 1) {
-
+            
             let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
             let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
 
@@ -115,7 +115,7 @@ let test = document.getElementsByClassName("show");
             setTimeout(() => {
                 timeoutID = true;
             }, 100);
-
+            console.log(event.target.offsetWidth, event.target.offsetHeight);
 
             function moveAt(pageX, pageY) {
                 target.style.left = pageX - shiftX + 'px';
@@ -178,13 +178,13 @@ document.addEventListener("touchstart", (event) => {
         }
         if (target === undefined) return;
         let originWidth = target.offsetWidth;
+        test[2].textContent = originWidth!==undefined?`${originWidth}`:"undefined";
         let originHieght = target.offsetHeight;
+        test[3].textContent = originHieght!==undefined?`${originHieght}`:"undefined";
+
         let originDist = Math.hypot(
             e.touches[0].pageX - e.touches[1].pageX,
             e.touches[0].pageY - e.touches[1].pageY);
-
-        test[2].textContent = originWidth!==undefined?`${originWidth}`:"undefined";
-        test[3].textContent = originHieght!==undefined?`${originHieght}`:"undefined";
         test[4].textContent = originDist!==undefined?`${originDist}`:"undefined";
 
 
