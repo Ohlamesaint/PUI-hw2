@@ -199,7 +199,7 @@ document.addEventListener("touchstart", (event) => {
         }
 
         function resize(e, target) {
-            test[7].textContent = "in";
+            test[7].textContent = `${originDist}/${dist(e)}`;
 
             let ratio = originDist / dist(e);
             if (direction === 0) {
