@@ -208,7 +208,7 @@ document.addEventListener("touchstart", (event) => {
             test[5].textContent = `${ratio}`;
         }
 
-        document.addEventListener("touchmove", resize);
+        document.addEventListener("touchmove", resize(event, target));
 
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
