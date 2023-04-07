@@ -210,11 +210,11 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                target.style.height = originHieght * ratio + "px";
+                target.offsetHeight = originHieght * ratio + "px";
                 // test[6].textContent = `height change : ${originHieght + "px"} -> ${originHieght * ratio}`;
 
             } else {
-                target.style.width = originWidth * ratio + "px";
+                target.offsetWidth = originWidth * ratio + "px";
                 // test[6].textContent = `width change : ${originWidth + "px"} -> ${originWidth * ratio + "px"}`;
 
             }
