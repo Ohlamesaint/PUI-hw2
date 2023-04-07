@@ -101,48 +101,54 @@ let targets = document.getElementsByClassName("target");
     })
 
     target.addEventListener("touchstart", (event) => {
+        if (event.touches.length == 1) {
+            let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
+            let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
 
-        let shiftX = event.clientX - target.getBoundingClientRect().left;
-        let shiftY = event.clientY - target.getBoundingClientRect().top;
-        let originX = event.pageX - shiftX + 'px';
-        let originY = event.pageY - shiftY + 'px';
-        event.target.style.position = 'absolute';
-        event.target.style.zIndex = 1000;
-        timeoutID = false;
-        setTimeout(() => {
-            timeoutID = true;
-        }, 100);
-
-
-        function moveAt(pageX, pageY) {
-            target.style.left = pageX - shiftX + 'px';
-            target.style.top = pageY - shiftY + 'px';
-        }
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
+            let originX = event.pageX - shiftX + 'px';
+            let originY = event.pageY - shiftY + 'px';
+            event.target.style.position = 'absolute';
+            event.target.style.zIndex = 1000;
+            timeoutID = false;
+            setTimeout(() => {
+                timeoutID = true;
+            }, 100);
 
 
-        function onKeydown(e) {
-            if (e.key === "Escape") {
-                document.removeEventListener("mousemove", onMouseMove);
-                document.removeEventListener("keydown", this);
-                target.style.left = originX;
-                target.style.top = originY;
+            function moveAt(pageX, pageY) {
+                target.style.left = pageX - shiftX + 'px';
+                target.style.top = pageY - shiftY + 'px';
             }
+
+            function onMouseMove(event) {
+                console.log("touch move", event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+                moveAt(event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+            }
+
+
+            // function onKeydown(e) {
+            //     if (e.key === "Escape") {
+            //         document.removeEventListener("mousemove", onMouseMove);
+            //         document.removeEventListener("keydown", this);
+            //         target.style.left = originX;
+            //         target.style.top = originY;
+            //     }
+            // }
+
+            // document.addEventListener("keydown", onKeydown)
+
+            document.addEventListener("touchmove", onMouseMove);
+            target.addEventListener("click", (event) => {
+                document.removeEventListener("touchmove", onMouseMove);
+                // document.removeEventListener("keydown", onKeydown);
+                target.removeEventListener("click", this);
+                event.target.style.zIndex = 10;
+                event.stopPropagation();
+            })
+        } else if (event.touches.length == 2) {
+
         }
 
-        document.addEventListener("keydown", onKeydown)
-
-        document.addEventListener("touchmove", onMouseMove);
-        target.addEventListener("click", (event) => {
-            document.removeEventListener("touchmove", onMouseMove);
-            document.removeEventListener("keydown", onKeydown);
-            target.removeEventListener("click", this);
-            event.target.style.zIndex = 10;
-            event.stopPropagation();
-        })
     })
 
     // less than 300ms
@@ -152,12 +158,65 @@ let targets = document.getElementsByClassName("target");
             [...targets].filter(t => t != target).forEach(t => t.style.backgroundColor = "red");
         }
         e.stopPropagation();
-
     })
-
-
 })
 
+document.addEventListener("touchstart", (event) => {
+    if (event.touches.length == 2) {
+        let targets = document.getElementsByClassName("target");
+        let target;
+        for (let i = 0; i < targets.length; i++) {
+            if (targets[i].style.backgroundColor === "blue") {
+                target = targets[i];
+                break;
+            }
+        }
+        if (target === undefined) return;
+        let originWidth = target.offsetWidth;
+        let originHieght = target.offsetHeight;
+        let originDist = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY);
+
+        //check is vertical(0) or horizontal(1)
+        let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX)>Math.abs(e.touches[0].pageY - e.touches[1].pageY))?1:0;
+
+
+        function dist(e) {
+            return Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY);
+        }
+
+        function resize(e, target) {
+            let ratio = originDist/dist(e);
+            if(direction === 0){
+                target.style.height = originHieght*ratio;
+            } else {
+                target.style.width = originWidth*ratio;
+            }
+        }
+    
+        document.addEventListener("touchmove", resize);
+    
+        document.addEventListener("touchend", () => {
+            if(event.touches.length == 0){
+                document.removeEventListener("touchmove", resize);
+                document.removeEventListener("touchend", this);
+            }
+        })
+    }
+
+    
+});
+
+
+document.addEventListener("mousedown", () => {
+    timeoutID = false;
+    setTimeout(() => {
+        timeoutID = true;
+    }, 100);
+})
 
 document.addEventListener("click", () => {
     if (!timeoutID) {
