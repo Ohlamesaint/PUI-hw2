@@ -115,7 +115,6 @@ let test = document.getElementsByClassName("show");
             setTimeout(() => {
                 timeoutID = true;
             }, 100);
-            console.log(event.target.offsetWidth, event.target.offsetHeight);
 
             function moveAt(pageX, pageY) {
                 target.style.left = pageX - shiftX + 'px';
@@ -183,13 +182,13 @@ document.addEventListener("touchstart", (event) => {
         test[3].textContent = originHieght!==undefined?`${originHieght}`:"undefined";
 
         let originDist = Math.hypot(
-            e.touches[0].pageX - e.touches[1].pageX,
-            e.touches[0].pageY - e.touches[1].pageY);
+            event.touches[0].pageX - event.touches[1].pageX,
+            event.touches[0].pageY - event.touches[1].pageY);
         test[4].textContent = originDist!==undefined?`${originDist}`:"undefined";
 
 
         //check is vertical(0) or horizontal(1)
-        let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX) > Math.abs(e.touches[0].pageY - e.touches[1].pageY)) ? 1 : 0;
+        let direction = (Math.abs(event.touches[0].pageX - event.touches[1].pageX) > Math.abs(event.touches[0].pageY - event.touches[1].pageY)) ? 1 : 0;
 
         test[1].textContent = `${direction}`;
 
