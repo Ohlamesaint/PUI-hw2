@@ -171,7 +171,6 @@ document.addEventListener("touchstart", (event) => {
         for (let i = 0; i < targets.length; i++) {
             if (targets[i].style.backgroundColor === "blue") {
                 target = targets[i];
-                test[6].textContent = i;
                 break;
             }
         }
@@ -210,6 +209,7 @@ document.addEventListener("touchstart", (event) => {
                     break;
                 }
             }
+            test[6].textContent = target;
             if (direction === 0) {
                 target.style.height = originHieght * ratio;
             } else {
