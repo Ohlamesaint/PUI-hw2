@@ -166,6 +166,7 @@ let test = document.getElementsByClassName("show");
 
 document.addEventListener("touchstart", (event) => {
     if (event.touches.length == 2) {
+        test[0].textContent = event.touches.length;
         let targets = document.getElementsByClassName("target");
         let target;
         for (let i = 0; i < targets.length; i++) {
@@ -184,7 +185,7 @@ document.addEventListener("touchstart", (event) => {
         //check is vertical(0) or horizontal(1)
         let direction = (Math.abs(e.touches[0].pageX - e.touches[1].pageX) > Math.abs(e.touches[0].pageY - e.touches[1].pageY)) ? 1 : 0;
 
-        test[0].textContent = `${originDist}, ${direction}`;
+        test[1].textContent = `${originDist}, ${direction}`;
 
         function dist(e) {
             return Math.hypot(
@@ -199,7 +200,7 @@ document.addEventListener("touchstart", (event) => {
             } else {
                 target.style.width = originWidth * ratio;
             }
-            test[0].textContent = `${originDist}, ${direction} ,
+            test[1].textContent = `${originDist}, ${direction} ,
                 ${ratio}`;
         }
 
@@ -207,7 +208,8 @@ document.addEventListener("touchstart", (event) => {
 
         document.addEventListener("touchend", () => {
             if (event.touches.length == 0) {
-
+                test[0].textContent = "fuck";
+                test[1].textContent = "fuck2";
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
