@@ -180,7 +180,7 @@ document.addEventListener("touchstart", (event) => {
         let originHieght = target.offsetHeight;
 
         target.style.width = originWidth;
-        target.style.height  = originHieght
+        target.style.height = originHieght
         // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
 
         let originDist = Math.hypot(
@@ -227,7 +227,7 @@ document.addEventListener("touchstart", (event) => {
         document.addEventListener("touchmove", resize);
 
         document.addEventListener("touchend", () => {
-            if (event.touches.length == 0) {
+            if (event.touches.length == 1) {
                 // test[0].textContent = "fuck";
                 // test[1].textContent = "direction";
                 // test[2].textContent = "OW";
@@ -236,6 +236,8 @@ document.addEventListener("touchstart", (event) => {
                 // test[5].textContent = "ratio";
                 // test[7].textContent = "--";
 
+                document.removeEventListener("touchmove", resize);
+            } else if (event.touches.length == 0) {
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
