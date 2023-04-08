@@ -22,8 +22,8 @@ let workspace = document.getElementById("workspace");
 
         let shiftX = event.clientX - target.getBoundingClientRect().left;
         let shiftY = event.clientY - target.getBoundingClientRect().top;
-        let originX = event.pageX - shiftX + 'px';
-        let originY = event.pageY - shiftY + 'px';
+        let originTop = event.target.offsetTop + 'px';
+        let originLeft = event.target.offsetLeft + 'px';
         event.target.style.position = 'absolute';
         event.target.style.zIndex = 1000;
         timeoutID = false;
@@ -45,9 +45,9 @@ let workspace = document.getElementById("workspace");
         function onKeydown(e) {
             if (e.key === "Escape") {
                 document.removeEventListener("mousemove", onMouseMove);
-                document.removeEventListener("keydown", this);
-                target.style.left = originX;
-                target.style.top = originY;
+                document.removeEventListener("keydown", onKeydown);
+                target.style.left = originLeft;
+                target.style.top = originTop;
             }
         }
 
@@ -343,3 +343,21 @@ document.addEventListener("click", () => {
         })
     }
 })
+
+let lastMax = 0;
+let rotate = 0;
+document.addEventListener("wheel", function onWheel(event) {
+    let targets = document.getElementsByClassName("target");
+    let target;
+    for (let i = 0; i < targets.length; i++) {
+        if (targets[i].style.backgroundColor === "blue") {
+            target = targets[i];
+            break;
+        }
+    }
+    if (target === undefined) return;
+
+    rotate += event.deltaY > 0 ? 10 : -10;
+    target.style.transform = 'rotate(' + rotate + 'deg)';
+});
+
