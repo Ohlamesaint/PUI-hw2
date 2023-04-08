@@ -241,14 +241,16 @@ document.addEventListener("touchstart", (event) => {
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
+            event.stopPropagation();
         })
-    } else {
-        test[0].textContent = event.touches.length;
-        document.addEventListener("touchend", () => {
-            test[0].textContent = "fuck";
-            document.removeEventListener("touchend", this);
-        })
-    }
+    } 
+    // else {
+    //     test[0].textContent = event.touches.length;
+    //     document.addEventListener("touchend", () => {
+    //         test[0].textContent = "fuck";
+    //         document.removeEventListener("touchend", this);
+    //     })
+    // }
 });
 
 
