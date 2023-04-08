@@ -211,11 +211,12 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                target.style.height = originHieght * ratio + "px";
+                if(originHieght * ratio >= 100)
+                    target.style.height = originHieght * ratio + "px";
 
             } else {
-
-                target.style.width = originWidth * ratio + "px";
+                if(originWidth*ration >= 100)
+                    target.style.width = originWidth * ratio + "px";
             }
         }
 
@@ -244,13 +245,12 @@ document.addEventListener("touchstart", (event) => {
             event.stopPropagation();
         })
     } 
-    // else {
-    //     test[0].textContent = event.touches.length;
-    //     document.addEventListener("touchend", () => {
-    //         test[0].textContent = "fuck";
-    //         document.removeEventListener("touchend", this);
-    //     })
-    // }
+    else {
+        document.addEventListener("touchend", () => {
+            document.removeEventListener("touchend", this);
+            event.stopPropagation();
+        })
+    }
 });
 
 
