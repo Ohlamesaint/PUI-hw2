@@ -211,11 +211,11 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                if(originHieght * ratio >= 100)
+                if(originHieght * ratio >= 15)
                     target.style.height = originHieght * ratio + "px";
 
             } else {
-                if(originWidth*ration >= 100)
+                if(originWidth*ration >= 15)
                     target.style.width = originWidth * ratio + "px";
             }
         }
