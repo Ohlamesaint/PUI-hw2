@@ -212,6 +212,8 @@ document.addEventListener("touchstart", (event) => {
             }
             if (direction === 0) {
                 target.style.height = originHieght * ratio + "px";
+                target.style.top -= ((originHieght * ratio)-originHieght)/2 + "px";
+
             } else {
                 // i++;
                 // if(i==1){
@@ -229,6 +231,7 @@ document.addEventListener("touchstart", (event) => {
                 
 
                 target.style.width = originWidth * ratio + "px";
+                target.style.left -= ((originWidth * ratio)-originWidth)/2 + "px";
             }
         }
 
