@@ -215,7 +215,7 @@ document.addEventListener("touchstart", (event) => {
             } else {
                 i++;
                 if(i==1){
-                    test[8].textContent = test[8].textContent + " 1 ";
+                    test[8].textContent = test[8].textContent + " 2 ";
 
                     let width = target.style.width;
                     test[4].textContent = width !== undefined ? `${width}` : "undefined";
@@ -244,10 +244,12 @@ document.addEventListener("touchstart", (event) => {
                 test[4].textContent = "W";
                 test[5].textContent = "H";
                 test[7].textContent = "--";
-                test[8].textContent = "num";
+                test[8].textContent = "num by 1";
 
                 document.removeEventListener("touchmove", resize);
             } else if (event.touches.length == 0) {
+                test[8].textContent = "num by 0";
+
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
