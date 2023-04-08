@@ -217,7 +217,8 @@ document.addEventListener("touchstart", (event) => {
                 if(i==1){
                     let width = target.style.width;
                     test[4].textContent = width !== undefined ? `${width}` : "undefined";
-                    let OW = originWidth;
+                    // 不知道為什麼 這裡的 width 會拿到原本的
+                    let OW = target.offsetWidth;
                     test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
                     test[7].textContent = ratio;
                     test[1].textContent = originDist;
