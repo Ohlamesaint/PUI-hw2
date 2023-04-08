@@ -200,6 +200,7 @@ document.addEventListener("touchstart", (event) => {
                 e.touches[0].pageX - e.touches[1].pageX,
                 e.touches[0].pageY - e.touches[1].pageY);
         }
+        i = 0;
         function resize(e) {
             let ratio = dist(e)/originDist;
             let target;
@@ -212,6 +213,15 @@ document.addEventListener("touchstart", (event) => {
             if (direction === 0) {
                 target.style.height = originHieght * ratio + "px";
             } else {
+                i++;
+                if(i==1){
+                    let width = target.style.width;
+                    test[4].textContent = width !== undefined ? `${width}` : "undefined";
+                    let OW = originWidth * ratio + "px";
+                    test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
+                }
+                
+
                 target.style.width = originWidth * ratio + "px";
             }
         }
