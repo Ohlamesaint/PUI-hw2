@@ -175,14 +175,14 @@ document.addEventListener("touchstart", (event) => {
             }
         }
         if (target === undefined) return;
-        let originWidth = target.offsetWidth;
-        test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
-        let originHieght = target.offsetHeight;
-        test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
-        let width = target.style.width;
-        test[4].textContent = width !== undefined ? `${width}` : "undefined";
-        let height = target.style.height;
-        test[5].textContent = height !== undefined ? `${height}` : "undefined";
+        // let originWidth = target.offsetWidth;
+        // test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
+        // let originHieght = target.offsetHeight;
+        // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
+        // let width = target.style.width;
+        // test[4].textContent = width !== undefined ? `${width}` : "undefined";
+        // let height = target.style.height;
+        // test[5].textContent = height !== undefined ? `${height}` : "undefined";
 
 
         let originDist = Math.hypot(
@@ -211,22 +211,22 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                target.style.height = originHieght * ratio + "px";
+                target.style.height = target.offsetHeight * ratio + "px";
             } else {
-                i++;
-                if(i==1){
-                    let width = target.style.width;
-                    test[4].textContent = width !== undefined ? `${width}` : "undefined";
-                    // 不知道為什麼 這裡的 width 會拿到原本的
-                    let OW = target.offsetWidth;
-                    test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
-                    test[7].textContent = ratio;
-                    test[1].textContent = originDist;
+                // i++;
+                // if(i==1){
+                //     let width = target.style.width;
+                //     test[4].textContent = width !== undefined ? `${width}` : "undefined";
+                //     // 不知道為什麼 這裡的 width 會拿到原本的
+                //     let OW = target.offsetWidth;
+                //     test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
+                //     test[7].textContent = ratio;
+                //     test[1].textContent = originDist;
 
-                }
+                // }
                 
 
-                target.style.width = originWidth * ratio + "px";
+                target.style.width = target.offsetWidth * ratio + "px";
             }
         }
 
