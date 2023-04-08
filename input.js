@@ -230,7 +230,6 @@ document.addEventListener("touchstart", (event) => {
 
                 target.style.width = originWidth * ratio + "px";
             }
-            e.preventDefault();
         }
 
         document.addEventListener("touchmove", resize);
