@@ -236,7 +236,7 @@ document.addEventListener("touchstart", (event) => {
 
 
         // touchend not fired because of touch cancel
-        document.addEventListener("touchcancel", () => {
+        document.addEventListener("touchend", (event) => {
             if (event.touches.length == 1) {
                 test[0].textContent = "fuck";
                 test[1].textContent = "direction";
@@ -254,6 +254,7 @@ document.addEventListener("touchstart", (event) => {
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
+            test[8].textContent = "WTF";
         })
     } else {
         test[0].textContent = event.touches.length;
