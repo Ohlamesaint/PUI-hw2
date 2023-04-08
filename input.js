@@ -175,9 +175,9 @@ document.addEventListener("touchstart", (event) => {
             }
         }
         if (target === undefined) return;
-        let originWidth = target.offsetWidth;
+        let originWidth = target.style.width;
         test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
-        let originHieght = target.offsetHeight;
+        let originHieght = target.style.height;
         test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
         let width = target.style.width;
         test[4].textContent = width !== undefined ? `${width}` : "undefined";
