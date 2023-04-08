@@ -139,10 +139,10 @@ let test = document.getElementsByClassName("show");
             // document.addEventListener("keydown", onKeydown)
 
             document.addEventListener("touchmove", onMouseMove);
-            target.addEventListener("click", (event) => {
+            target.addEventListener("touchend", (event) => {
                 document.removeEventListener("touchmove", onMouseMove);
                 // document.removeEventListener("keydown", onKeydown);
-                target.removeEventListener("click", this);
+                target.removeEventListener("touchend", this);
                 event.target.style.zIndex = 10;
                 event.stopPropagation();
 
@@ -212,26 +212,10 @@ document.addEventListener("touchstart", (event) => {
             }
             if (direction === 0) {
                 target.style.height = originHieght * ratio + "px";
-                target.style.top = (target.style.top - ((originHieght * ratio)-originHieght)/2) + "px";
 
             } else {
-                // i++;
-                // if(i==1){
-                //     test[8].textContent = test[8].textContent + " 2 ";
-
-                //     let width = target.style.width;
-                //     test[4].textContent = width !== undefined ? `${width}` : "undefined";
-                //     // 不知道為什麼 這裡的 width 會拿到原本的
-                //     let OW = originWidth;
-                //     // test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
-                //     // test[7].textContent = ratio;
-                //     // test[1].textContent = originDist;
-
-                // }
-                
 
                 target.style.width = originWidth * ratio + "px";
-                target.style.left = (target.style.left - ((originWidth * ratio)-originWidth)/2) + "px";
             }
         }
 
