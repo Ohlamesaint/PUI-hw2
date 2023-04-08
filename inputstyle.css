@@ -26,3 +26,16 @@ body {
   background-color: red;
   box-sizing: border-box;
 }
+
+#selectDiv {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px dashed gray;
+  background-color: #aaa;
+  z-index: 1000;
+  opacity: 0.6;
+  display: none;
+}

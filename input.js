@@ -12,6 +12,7 @@ of the interaction.
 let timeoutID;
 let targets = document.getElementsByClassName("target");
 let test = document.getElementsByClassName("show");
+let workspace = document.getElementById("workspace");
 
 [...targets].forEach(target => {
 
@@ -60,6 +61,7 @@ let test = document.getElementsByClassName("show");
             event.target.style.zIndex = 10;
             event.stopPropagation();
         })
+        event.stopPropagation();
     })
 
     target.addEventListener("dblclick", (event) => {
@@ -99,58 +101,80 @@ let test = document.getElementsByClassName("show");
             event.target.style.zIndex = 10;
             event.stopPropagation();
         })
-    })
 
+        event.stopPropagation();
+    })
+    var mylatesttap = new Date().getTime();
+    function doubletap() {
+        var now = new Date().getTime();
+        var timesince = now - mylatesttap;
+        mylatesttap = new Date().getTime();
+        return (timesince < 600) && (timesince > 0);
+
+    }
     target.addEventListener("touchstart", (event) => {
         if (event.touches.length == 1) {
+            if (doubletap()) {
+                console.log("trigger!!");
+                let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
+                let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
 
-            let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
-            let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
+                event.target.style.position = 'absolute';
+                event.target.style.zIndex = 1000;
+                timeoutID = false;
+                setTimeout(() => {
+                    timeoutID = true;
+                }, 100);
 
-            let originX = event.pageX - shiftX + 'px';
-            let originY = event.pageY - shiftY + 'px';
-            event.target.style.position = 'absolute';
-            event.target.style.zIndex = 1000;
-            timeoutID = false;
-            setTimeout(() => {
-                timeoutID = true;
-            }, 100);
+                function moveAt(pageX, pageY) {
+                    target.style.left = pageX - shiftX + 'px';
+                    target.style.top = pageY - shiftY + 'px';
+                }
 
-            function moveAt(pageX, pageY) {
-                target.style.left = pageX - shiftX + 'px';
-                target.style.top = pageY - shiftY + 'px';
+                function onMouseMove(event) {
+                    console.log("touch move", event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+                    moveAt(event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+                }
+
+                document.addEventListener("touchmove", onMouseMove);
+                document.addEventListener("click", function onClick(event) {
+                    document.removeEventListener("touchmove", onMouseMove);
+                    document.removeEventListener("click", onClick);
+                    event.target.style.zIndex = 10;
+                    event.stopPropagation();
+                })
+            } else {
+                let shiftX = event.targetTouches[0].clientX - target.getBoundingClientRect().left;
+                let shiftY = event.targetTouches[0].clientY - target.getBoundingClientRect().top;
+
+                event.target.style.position = 'absolute';
+                event.target.style.zIndex = 1000;
+                timeoutID = false;
+                setTimeout(() => {
+                    timeoutID = true;
+                }, 100);
+
+                function moveAt(pageX, pageY) {
+                    target.style.left = pageX - shiftX + 'px';
+                    target.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+                }
+
+                document.addEventListener("touchmove", onMouseMove);
+                target.addEventListener("touchend", function onTouchEnd(event) {
+                    document.removeEventListener("touchmove", onMouseMove);
+                    target.removeEventListener("touchend", onTouchEnd);
+                    event.target.style.zIndex = 10;
+                    event.stopPropagation();
+
+                })
             }
-
-            function onMouseMove(event) {
-                console.log("touch move", event.targetTouches[0].pageX, event.targetTouches[0].pageY);
-                moveAt(event.targetTouches[0].pageX, event.targetTouches[0].pageY);
-            }
-
-
-            // function onKeydown(e) {
-            //     if (e.key === "Escape") {
-            //         document.removeEventListener("mousemove", onMouseMove);
-            //         document.removeEventListener("keydown", this);
-            //         target.style.left = originX;
-            //         target.style.top = originY;
-            //     }
-            // }
-
-            // document.addEventListener("keydown", onKeydown)
-
-            document.addEventListener("touchmove", onMouseMove);
-            target.addEventListener("touchend", (event) => {
-                document.removeEventListener("touchmove", onMouseMove);
-                // document.removeEventListener("keydown", onKeydown);
-                target.removeEventListener("touchend", this);
-                event.target.style.zIndex = 10;
-                event.stopPropagation();
-
-            })
-        } else if (event.touches.length == 2) {
 
         }
-
+        event.stopPropagation();
     })
 
     // less than 300ms
@@ -165,7 +189,6 @@ let test = document.getElementsByClassName("show");
 
 document.addEventListener("touchstart", (event) => {
     if (event.touches.length == 2) {
-        // test[0].textContent = event.touches.length;
         let targets = document.getElementsByClassName("target");
         let target;
         for (let i = 0; i < targets.length; i++) {
@@ -176,19 +199,12 @@ document.addEventListener("touchstart", (event) => {
         }
         if (target === undefined) return;
         let originWidth = target.offsetWidth;
-        // test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
         let originHieght = target.offsetHeight;
-        // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
-        // let width = target.style.width;
-        // test[4].textContent = width !== undefined ? `${width}` : "undefined";
-        // let height = target.style.height;
-        // test[5].textContent = height !== undefined ? `${height}` : "undefined";
 
 
         let originDist = Math.hypot(
             event.touches[0].pageX - event.touches[1].pageX,
             event.touches[0].pageY - event.touches[1].pageY);
-        // test[4].textContent = originDist !== undefined ? `${originDist}` : "undefined";
 
 
         //check is vertical(0) or horizontal(1)
@@ -202,7 +218,7 @@ document.addEventListener("touchstart", (event) => {
         }
         i = 0;
         function resize(e) {
-            let ratio = dist(e)/originDist;
+            let ratio = dist(e) / originDist;
             let target;
             for (let i = 0; i < targets.length; i++) {
                 if (targets[i].style.backgroundColor === "blue") {
@@ -211,54 +227,113 @@ document.addEventListener("touchstart", (event) => {
                 }
             }
             if (direction === 0) {
-                if(originHieght * ratio >= 15)
+                if (originHieght * ratio >= 30)
                     target.style.height = originHieght * ratio + "px";
 
             } else {
-                if(originWidth*ration >= 15)
+                if (originWidth * ratio >= 30)
                     target.style.width = originWidth * ratio + "px";
             }
         }
 
         document.addEventListener("touchmove", resize);
 
-
-        // touchend not fired because of touch cancel
         document.addEventListener("touchend", (event) => {
             if (event.touches.length == 1) {
-                // test[0].textContent = "fuck";
-                // test[1].textContent = "direction";
-                // test[2].textContent = "OW";
-                // test[3].textContent = "OH";
-                // test[4].textContent = "W";
-                // test[5].textContent = "H";
-                // test[7].textContent = "--";
-                // test[8].textContent = "num by 1";
-
                 document.removeEventListener("touchmove", resize);
             } else if (event.touches.length == 0) {
-                // test[8].textContent = "num by 0";
-
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
-            event.stopPropagation();
-        })
-    } 
-    else {
-        document.addEventListener("touchend", () => {
-            document.removeEventListener("touchend", this);
             event.stopPropagation();
         })
     }
 });
 
 
-document.addEventListener("mousedown", () => {
+document.addEventListener("mousedown", (event) => {
     timeoutID = false;
     setTimeout(() => {
         timeoutID = true;
     }, 100);
+
+    let originX = event.clientX;
+    let originY = event.clientY;
+
+
+    async function boxSelection() {
+        // document.style.cursor = "pointer";
+
+        // create div
+        let longPress = false;
+        setTimeout(() => {
+            longPress = true;
+        }, 500);
+
+
+        let selectDiv = document.createElement("selectDiv");
+        selectDiv.id = "selectDiv";
+        workspace.appendChild(selectDiv);
+
+        selectDiv.style.left = originX + 'px';
+        selectDiv.style.top = originY + 'px';
+
+
+        function onMouseMove(event) {
+            if (longPress) {
+                var _x = event.clientX;
+                var _y = event.clientY;
+                var selDiv = document.getElementById('selectDiv');
+                selDiv.style.display = 'block';
+                selDiv.style.left = Math.min(_x, originX) + 'px';
+                selDiv.style.top = Math.min(_y, originY) + 'px';
+                selDiv.style.width = Math.abs(_x - originX) + 'px';
+                selDiv.style.height = Math.abs(_y - originY) + 'px';
+            }
+        }
+
+        function onMouseUp() {
+            if (longPress) {
+                var selDiv = document.getElementById('selectDiv');
+                var targets = document.getElementsByClassName('target');
+                var selectedEls = [];
+
+                var l = selDiv.offsetLeft;
+                var t = selDiv.offsetTop;
+                var w = selDiv.offsetWidth;
+                var h = selDiv.offsetHeight;
+                console.log(l, t, w, h)
+                for (var i = 0; i < targets.length; i++) {
+                    var sw = targets[i].offsetWidth;
+                    var sh = targets[i].offsetHeight;
+                    var sl = targets[i].offsetLeft;
+                    var st = targets[i].offsetTop
+                    console.log(l, t, w, h, sl, st);
+
+                    if ((sl + sw) <= (l + w) && (st + sh) <= (t + h) && sl >= l && st >= t) {
+                        selectedEls.push(targets[i]);
+                    }
+                }
+                if (selectedEls.length > 0) {
+                    selectedEls[0].style.backgroundColor = "blue";
+                    [...targets].filter(t => t != selectedEls[0]).forEach(t => t.style.backgroundColor = "red");
+                } else {
+                    [...targets].forEach(target => {
+                        target.style.backgroundColor = "red";
+                    })
+                }
+                selDiv.style.display = 'none';
+            }
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+    }
+
+    boxSelection();
+
 })
 
 document.addEventListener("click", () => {
