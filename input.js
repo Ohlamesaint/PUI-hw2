@@ -176,13 +176,13 @@ document.addEventListener("touchstart", (event) => {
         }
         if (target === undefined) return;
         let originWidth = target.offsetWidth;
-        test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
+        // test[2].textContent = originWidth !== undefined ? `${originWidth}` : "undefined";
         let originHieght = target.offsetHeight;
-        test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
-        let width = target.style.width;
-        test[4].textContent = width !== undefined ? `${width}` : "undefined";
-        let height = target.style.height;
-        test[5].textContent = height !== undefined ? `${height}` : "undefined";
+        // test[3].textContent = originHieght !== undefined ? `${originHieght}` : "undefined";
+        // let width = target.style.width;
+        // test[4].textContent = width !== undefined ? `${width}` : "undefined";
+        // let height = target.style.height;
+        // test[5].textContent = height !== undefined ? `${height}` : "undefined";
 
 
         let originDist = Math.hypot(
@@ -213,19 +213,19 @@ document.addEventListener("touchstart", (event) => {
             if (direction === 0) {
                 target.style.height = originHieght * ratio + "px";
             } else {
-                i++;
-                if(i==1){
-                    test[8].textContent = test[8].textContent + " 2 ";
+                // i++;
+                // if(i==1){
+                //     test[8].textContent = test[8].textContent + " 2 ";
 
-                    let width = target.style.width;
-                    test[4].textContent = width !== undefined ? `${width}` : "undefined";
-                    // 不知道為什麼 這裡的 width 會拿到原本的
-                    let OW = originWidth;
-                    test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
-                    test[7].textContent = ratio;
-                    test[1].textContent = originDist;
+                //     let width = target.style.width;
+                //     test[4].textContent = width !== undefined ? `${width}` : "undefined";
+                //     // 不知道為什麼 這裡的 width 會拿到原本的
+                //     let OW = originWidth;
+                //     // test[2].textContent = OW !== undefined ? `${OW}` : "undefined";
+                //     // test[7].textContent = ratio;
+                //     // test[1].textContent = originDist;
 
-                }
+                // }
                 
 
                 target.style.width = originWidth * ratio + "px";
@@ -238,23 +238,22 @@ document.addEventListener("touchstart", (event) => {
         // touchend not fired because of touch cancel
         document.addEventListener("touchend", (event) => {
             if (event.touches.length == 1) {
-                test[0].textContent = "fuck";
-                test[1].textContent = "direction";
-                test[2].textContent = "OW";
-                test[3].textContent = "OH";
-                test[4].textContent = "W";
-                test[5].textContent = "H";
-                test[7].textContent = "--";
-                test[8].textContent = "num by 1";
+                // test[0].textContent = "fuck";
+                // test[1].textContent = "direction";
+                // test[2].textContent = "OW";
+                // test[3].textContent = "OH";
+                // test[4].textContent = "W";
+                // test[5].textContent = "H";
+                // test[7].textContent = "--";
+                // test[8].textContent = "num by 1";
 
                 document.removeEventListener("touchmove", resize);
             } else if (event.touches.length == 0) {
-                test[8].textContent = "num by 0";
+                // test[8].textContent = "num by 0";
 
                 document.removeEventListener("touchmove", resize);
                 document.removeEventListener("touchend", this);
             }
-            test[8].textContent = "WTF";
         })
     } else {
         test[0].textContent = event.touches.length;
